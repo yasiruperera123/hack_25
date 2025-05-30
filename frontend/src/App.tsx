@@ -1,5 +1,5 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './contexts/AuthContext';
+import { Routes, Route } from 'react-router-dom';
+// import { AuthProvider } from './contexts/AuthContext';
 import { Layout } from './components/layout/Layout';
 import { ProtectedRoute } from './components/ProtectedRoute';
 
@@ -11,8 +11,8 @@ const Products = lazy(() => import('./pages/Products'));
 // const ProductDetails = lazy(() => import('./pages/ProductDetails'));
 const Login = lazy(() => import('./pages/Login'));
 // const Register = lazy(() => import('./pages/Register'));
-// const Cart = lazy(() => import('./pages/Cart'));
-// const Checkout = lazy(() => import('./pages/Checkout'));
+const Cart = lazy(() => import('./pages/Cart'));
+const Checkout = lazy(() => import('./pages/Checkout'));
 // const Profile = lazy(() => import('./pages/Profile'));
 // const Orders = lazy(() => import('./pages/Orders'));
 // const AdminDashboard = lazy(() => import('./pages/admin/Dashboard'));
@@ -29,25 +29,37 @@ function LoadingSpinner() {
 
 function App() {
   return (
-    <Router>
-      <AuthProvider>
-        <Layout>
-          <Suspense fallback={<LoadingSpinner />}>
-            <Routes>
-              {/* Public Routes */}
-              <Route path="/" element={<Home />} />
-              <Route path="/products" element={<Products />} />
-              {/* <Route path="/products/:id" element={<ProductDetails />} /> */}
-              <Route path="/login" element={<Login />} />
-              {/* <Route path="/register" element={<Register />} /> */}
+    <Layout>
+      <Suspense fallback={<LoadingSpinner />}>
+        <Routes>
+          {/* Public Routes */}
+          <Route path="/" element={<Home />} />
+          <Route path="/products" element={<Products />} />
+          {/* <Route path="/products/:id" element={<ProductDetails />} /> */}
+          <Route path="/login" element={<Login />} />
+          {/* <Route path="/register" element={<Register />} /> */}
 
-              {/* Protected Routes */}
-              
-            </Routes>
-          </Suspense>
-        </Layout>
-      </AuthProvider>
-    </Router>
+          {/* Protected Routes */}
+          <Route
+            path="/cart"
+            element={
+              <ProtectedRoute>
+                <Cart />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/checkout"
+            element={
+              <ProtectedRoute>
+                <Checkout />
+              </ProtectedRoute>
+            }
+          />
+          {/* TODO: Add routes for OrderConfirmation, Profile, Orders, Admin, etc. */}
+                  </Routes>
+      </Suspense>
+    </Layout>
   );
 }
 

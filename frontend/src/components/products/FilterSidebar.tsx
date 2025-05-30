@@ -45,7 +45,7 @@ export function FilterSidebar({
           >
             All Categories
           </button>
-          {categories.map((category) => (
+          {categories && categories.length > 0 && categories.map((category) => (
             <button
               key={category}
               className={`block w-full text-left px-4 py-2 rounded-md ${

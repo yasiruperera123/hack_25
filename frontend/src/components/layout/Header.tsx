@@ -2,7 +2,8 @@ import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon, ShoppingCartIcon } from '@heroicons/react/24/outline';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../../context/AuthContext';
+import { useCart } from '../../context/CartContext';
 
 const navigation = [
   { name: 'Home', href: '/' },
@@ -11,6 +12,7 @@ const navigation = [
 
 export function Header() {
   const { user, logout, isAuthenticated } = useAuth();
+  const { cartItemCount } = useCart();
 
   return (
     <Disclosure as="nav" className="bg-white shadow">
@@ -42,9 +44,11 @@ export function Header() {
                   className="relative p-2 text-gray-400 hover:text-gray-500"
                 >
                   <ShoppingCartIcon className="h-6 w-6" />
-                  <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-blue-600 rounded-full">
-                    0
-                  </span>
+                  {cartItemCount > 0 && (
+                    <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-blue-600 rounded-full">
+                      {cartItemCount}
+                    </span>
+                  )}
                 </Link>
 
                 {isAuthenticated ? (
