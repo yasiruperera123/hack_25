@@ -44,8 +44,7 @@ frontend/
 - **Runtime**: Node.js
 - **Framework**: Express.js
 - **Language**: TypeScript
-- **Database**: PostgreSQL (assumed)
-- **ORM**: TypeORM/Prisma (assumed)
+- **Database**: MongoDB
 - **Authentication**: JWT
 - **API Style**: RESTful
 
